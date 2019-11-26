@@ -339,6 +339,11 @@ export function get_page_handler(
 	}
 
 	return function find_route(req: Req, res: Res, next: () => void) {
+
+		if(req.path == decodeURI(req.path)){
+			req.path = encodeURI(req.path);
+		}
+		
 		if (req.path === '/service-worker-index.html') {
 			const homePage = pages.find(page => page.pattern.test('/'));
 			handle_page(homePage, req, res);
